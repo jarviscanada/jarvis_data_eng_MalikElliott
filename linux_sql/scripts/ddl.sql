@@ -30,3 +30,5 @@ CREATE TABLE IF NOT EXISTS host_usage
      CONSTRAINT host_usage_host_info_fk FOREIGN KEY (host_id) REFERENCES
      host_info(id)
   );
+
+psql -h localhost -U postgres -d host_agent
