@@ -1,8 +1,8 @@
 #!/bin/bash
 
-USE host_agent;
+#USE host_agent;
 
-CREATE TABLE IF NOT EXISTS host_info
+CREATE USER TABLE IF NOT EXISTS host_info
   (
      id               SERIAL NOT NULL,
      hostname         VARCHAR NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS host_info
   );
 
 
-CREATE TABLE IF NOT EXISTS host_usage
+CREATE USER TABLE IF NOT EXISTS host_usage
   (
      "timestamp"    TIMESTAMP NOT NULL,
      host_id        SERIAL NOT NULL,
@@ -31,4 +31,4 @@ CREATE TABLE IF NOT EXISTS host_usage
      host_info(id)
   );
 
-psql -h localhost -U postgres -d host_agent
+psql -h localhost -U postgres -d host_agent -f ddl.sql
