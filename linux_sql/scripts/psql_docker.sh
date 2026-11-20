@@ -29,21 +29,28 @@ case $cmd in
  	 fi
   
   # Create container
-	docker volume #todo
+  	docker pull postgres
+  	export PGPASSWORD='password'
+	docker volume create pgdata
   # Start the container
-	docker run #todo
+	docker run --name jrvs-psql -e POSTGRES_PASSWORD=$PGPASSWORD  -d -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres:9.6-alpine
   # Make sure you understand what's `$?`
 	exit $?
 	;;
 
   	start|stop) 
   # Check instance status; exit 1 if container has not been created
-  	if [ $container_status # ... todo
-  # ... todo
+  	if [ $container_status -eq 1 ]; then
+ 	 # Start or stop the container
+	 	exit 1
+	fi
 
-  # Start or stop the container
+
+	docker container stop jrvs-psql
+        docker container start jrvs-psql
 	docker container $cmd jrvs-psql
 	exit $?
+	
 	;;	
   
   	*)
